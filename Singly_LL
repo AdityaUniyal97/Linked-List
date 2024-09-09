@@ -1,0 +1,182 @@
+// Linked is a sequance of nades each noden contain some data and a pointer to the next node 
+// Dynamic size , easy to add or remove the elements form the ll
+// No randome access  , extra memory pointer
+class Node{
+    int data;
+    Node next;
+    Node(int x)
+    {
+        data = x;
+        next = null;
+    }
+}
+public class test{
+    static Node insertatbegin(Node head , int x)
+    {
+        Node temp = new Node(x);
+        temp.next = head;
+        return temp;
+    }
+    
+    // Insert at End
+    static Node insertatend(Node head , int x)
+    {
+        Node temp = new Node(x);
+        if(head == null)
+        {
+            return temp;
+        }
+        Node curr = head;
+        while(curr.next != null)
+        {
+            curr = curr.next;
+        }
+        curr.next = temp;
+        return head;
+    }
+    
+    // Insert at Pos
+    static Node insertatpos(Node head ,int x , int pos)
+    {
+        Node temp = new Node(x);
+        if(head == null)
+        {
+            if(pos == 1)
+            {
+                return temp;
+            }
+            else{
+                return head; // which is null
+            }
+        }
+        if(pos == 1)
+        {
+            temp.next = head;
+            return temp;
+        }
+        Node curr = head;
+        for(int i = 1; i < pos - 1; i++){
+            curr = curr.next;
+            if(curr == null)
+            {
+                System.out.println("Position Out of Range");
+                return head;
+            }
+            temp.next = curr.next;
+            curr.next = temp;
+        }
+        return head;
+    }
+    
+    // delete node
+    static Node deleteend(Node head)
+    {
+        if(head == null)
+        {
+            return null;
+        }
+        if(head.next == null)
+        {
+            return null;
+        }
+        Node curr = head;
+        while(curr.next.next != null)
+        {
+            curr = curr.next;
+        }
+        curr.next = null;
+        return head;
+    }
+    
+    // search in LL
+    static  int search(Node head , int x)
+    {
+        int pos = 1;
+        Node curr = head;
+        while(curr != null)
+        {
+            if(curr.data == x)
+            {
+                return pos;
+            }
+            else{
+                pos ++;
+                curr = curr.next;
+            }
+        }
+        return -1;
+    }
+    
+    // Delete First Node
+    static Node deletefirsT(Node head)
+    {
+        if(head == null)
+        {
+            return head;
+        }
+        return head.next;
+    }
+    
+    // delete pos
+    static Node deletepos(Node head ,int pos)
+    {
+        if(head == null || pos < 1)
+        {
+            System.out.println("Invalid Index");
+            return head;
+        }
+        if(pos == 1)
+        {
+            return head = head.next;
+        }
+        Node curr = head;
+        for(int i = 1; i < pos - 1; i ++)
+        {
+            curr = curr.next;
+            if(curr == null || curr.next == null)
+            {
+                System.out.println("Postion out of range");
+                return head;
+            }
+        }
+        curr.next = curr.next.next;
+        return head;
+    }
+    public static void print(Node head)
+    {
+        Node curr = head;
+        while(curr != null)
+        {
+            System.out.print(curr.data+" ");
+            curr = curr.next;
+        }
+        System.out.println();
+    }
+    public static void main(String args[])
+    
+    {
+        Node head = null;
+        head = insertatbegin(head , 10);
+        head = insertatbegin(head , 20);
+        head = insertatbegin(head , 30);
+        head = insertatbegin(head , 40);
+        print(head);
+        
+        head = insertatend(head , 50);
+        print(head);
+        
+        head = insertatpos(head , 77 , 2);
+        print(head);
+        
+        head = deleteend(head);
+        print(head);
+        
+        System.out.println("index of 40 is "+search(head , 40));
+        
+        head = deletefirsT(head);
+        print(head);
+        
+        head = deletepos(head , 2);
+        print(head);
+    }
+}
